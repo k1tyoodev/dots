@@ -99,7 +99,15 @@ else
   success "pnpm already installed"
 fi
 
-# 8. install opencode
+# 8. install nil
+if ! command -v nil >/dev/null 2>&1; then
+  log "Installing nil"
+  nix profile install nixpkgs#nil
+else
+  success "nil already installed"
+fi
+
+# 9. install opencode
 if ! command -v opencode >/dev/null 2>&1 && ! [[ -x "$HOME/.opencode/bin/opencode" ]]; then
   log "Installing opencode"
   curl -fsSL https://opencode.ai/install | bash
@@ -107,7 +115,7 @@ else
   success "opencode already installed"
 fi
 
-# 9. post-install reminders
+# 10. post-install reminders
 echo
 log "Post-install reminders:"
 echo "  1. Authenticate with GitHub:    gh auth login"
