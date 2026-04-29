@@ -237,6 +237,13 @@ require("lazy").setup({
           settings = {
             Lua = {
               completion = { callSnippet = "Replace" },
+              diagnostics = {
+                globals = { "vim" },
+              },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+              },
             },
           },
         },
@@ -307,7 +314,7 @@ require("lazy").setup({
       require("nvim-treesitter").setup({})
       local langs = {
         "bash", "c", "diff", "html", "css", "javascript", "typescript", "tsx",
-        "json", "jsonc", "lua", "luadoc", "markdown", "markdown_inline",
+        "json", "lua", "luadoc", "markdown", "markdown_inline",
         "python", "query", "regex", "vim", "vimdoc", "yaml", "toml", "rust", "go",
       }
       require("nvim-treesitter").install(langs)

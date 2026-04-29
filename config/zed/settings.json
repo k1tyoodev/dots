@@ -38,8 +38,8 @@
   "buffer_font_size": 13,
   "buffer_line_height": "comfortable",
   "theme": {
-    "mode": "system",
-    "light": "Vitesse Refined Light",
+    "mode": "dark",
+    "light": "Vesper",
     "dark": "Vesper"
   },
   "terminal": {

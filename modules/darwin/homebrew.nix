@@ -99,7 +99,6 @@
       "google-chrome"
       "hoppscotch"
       "linear-linear"
-      "ngrok"
       "orbstack"
     ];
   };

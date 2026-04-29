@@ -8,6 +8,9 @@
       fish_vi_key_bindings
       set fish_greeting ""
 
+      # terminal
+      set -gx TERM xterm-256color
+
       # homebrew
       eval (/opt/homebrew/bin/brew shellenv)
 
@@ -38,6 +41,11 @@
       # opencode
       fish_add_path $HOME/.opencode/bin
 
+      # local secrets
+      if test -f "$HOME/.dots/secrets/github.fish"
+        source "$HOME/.dots/secrets/github.fish"
+      end
+
       # proxy
       set -gx https_proxy http://127.0.0.1:8234
       set -gx http_proxy http://127.0.0.1:8234
@@ -67,7 +75,7 @@
       uc = "npx @ccusage/codex@latest";
       oc = "OPENCODE_DISABLE_CLAUDE_CODE=1 opencode";
       c = "codex --yolo";
-      cc = "claude --dangerously-skip-permissions";
+      cc = "claude";
       a = "agent -f";
       scc = "scc --no-complexity --no-cocomo --no-size";
 

@@ -14,9 +14,9 @@
       };
 
       character = {
-        success_symbol = "[❯](bold purple)";
-        error_symbol = "[❯](bold red)";
-        vimcmd_symbol = "[❯](bold green)";
+        success_symbol = "[❯](purple)";
+        error_symbol = "[❯](red)";
+        vimcmd_symbol = "[❯](green)";
       };
 
       git_branch = {

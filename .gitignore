@@ -24,6 +24,10 @@ config/opencode/.opencode/
 *.swo
 *~
 
+# logs
+*.log
+.nvimlog
+
 # os
 .DS_Store
 Thumbs.db

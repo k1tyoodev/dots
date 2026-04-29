@@ -1,6 +1,6 @@
 # --- Theme and Colors ---
-theme = Vesper
-macos-titlebar-style = hidden
+theme = vesper
+macos-titlebar-style = tabs
 macos-window-shadow = true
 
 # --- Typography ---
