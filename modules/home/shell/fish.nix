@@ -41,15 +41,29 @@
       # opencode
       fish_add_path $HOME/.opencode/bin
 
+      # zoxide interactive picker
+      set -gx _ZO_FZF_OPTS "--no-sort --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C"
+
       # local secrets
       if test -f "$HOME/.dots/secrets/github.fish"
         source "$HOME/.dots/secrets/github.fish"
       end
 
       # proxy
-      set -gx https_proxy http://127.0.0.1:8234
-      set -gx http_proxy http://127.0.0.1:8234
-      set -gx all_proxy socks5://127.0.0.1:8235
+      function proxy
+        set -gx https_proxy http://127.0.0.1:8234
+        set -gx http_proxy http://127.0.0.1:8234
+        set -gx all_proxy socks5://127.0.0.1:8235
+        echo "proxy enabled"
+      end
+
+      # un-proxy
+      function un-proxy
+        set -e https_proxy
+        set -e http_proxy
+        set -e all_proxy
+        echo "proxy disabled"
+      end
 
       # orbstack integration
       source ~/.orbstack/shell/init2.fish 2>/dev/null || true
