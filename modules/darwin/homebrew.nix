@@ -92,13 +92,11 @@
       "raycast"
 
       # dev
-      "zed"
       "ghostty"
       "cursor"
       "git-credential-manager"
       "google-chrome"
       "hoppscotch"
-      "linear-linear"
       "orbstack"
     ];
   };

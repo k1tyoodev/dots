@@ -3,7 +3,6 @@
 {
   imports = [
     ../../modules/home/editors/neovim.nix
-    ../../modules/home/editors/zed.nix
     ../../modules/home/git.nix
     ../../modules/home/packages/node.nix
     ../../modules/home/shell/fish.nix

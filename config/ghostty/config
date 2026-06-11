@@ -29,7 +29,7 @@ clipboard-paste-bracketed-safe = true
 
 # --- Shell Integration ---
 shell-integration = fish
-shell-integration-features = no-cursor
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 keybind = shift+enter=text:\x1b\r
 
 # --- Performance ---

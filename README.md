@@ -1,80 +1,69 @@
 # dots
 
-nix-darwin + home-manager config for macOS Apple Silicon.
+Personal macOS dotfiles managed with nix-darwin, home-manager, and Homebrew.
 
-## install
+The flake currently targets Apple Silicon and exposes one host configuration:
+`kybook`.
+
+## Install
+
+Run the bootstrap script as your normal user:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/k1tyoodev/dots/main/scripts/setup.sh | bash
 ```
 
-Run the setup script as your normal user. It will prompt for `sudo` only when needed.
+The script installs Nix when needed, checks the matching host under `hosts/`,
+runs `darwin-rebuild`, installs user-scoped toolchains, and only prompts for
+`sudo` during the system switch.
 
-## rebuild
+## Rebuild
+
+After the first setup, rebuild from this checkout with the Fish helper:
 
 ```sh
 rebuild
 ```
 
-## structure
+Equivalent command:
+
+```sh
+sudo darwin-rebuild switch --flake ~/.dots
+```
+
+## Structure
+
+Directory tree is intentionally capped at two nested levels.
 
 ```text
 .
-|-- .github/                         # GitHub repository automation
-|   `-- workflows/
-|       `-- flake-update.yml         # workflow for updating Nix flake inputs
-|-- config/                          # raw app config files symlinked by home-manager
-|   |-- bat/
-|   |   `-- themes/
-|   |       `-- vesper.tmTheme       # Vesper syntax theme for bat
-|   |-- btop/
-|   |   `-- themes/
-|   |       `-- vesper.theme         # Vesper color theme for btop
-|   |-- ghostty/
-|   |   `-- config                   # Ghostty terminal settings
-|   |-- nvim/
-|   |   |-- README.md                # Neovim keybinding and plugin notes
-|   |   |-- init.lua                 # full Neovim Lua configuration
-|   |   `-- lazy-lock.json           # lazy.nvim plugin lockfile
-|   |-- vite-plus/
-|   |   `-- config.json              # Vite+ default Node version
-|   `-- zed/
-|       |-- keymap.json              # Zed custom keybindings
-|       `-- settings.json            # Zed editor, terminal, Git, and UI settings
-|-- hosts/
-|   `-- kybook/
-|       |-- default.nix              # machine-level nix-darwin config
-|       `-- home.nix                 # home-manager entrypoint for k1tyoo
-|-- modules/
-|   |-- darwin/
-|   |   |-- homebrew.nix             # Homebrew taps, brews, and casks
-|   |   `-- system.nix               # macOS defaults and Touch ID sudo
-|   `-- home/
-|       |-- dev.nix                  # fd, ripgrep, Yazi, btop, bat, and gh config
-|       |-- editors/
-|       |   |-- neovim.nix           # enables Neovim and links config/nvim
-|       |   `-- zed.nix              # links Zed settings and keymap
-|       |-- git.nix                  # Git identity, signing, aliases, and defaults
-|       |-- packages/
-|       |   `-- node.nix             # Vite+ Node environment and config link
-|       |-- shell/
-|       |   |-- fish.nix             # Fish shell, aliases, PATH, and integrations
-|       |   `-- starship.nix         # Starship prompt styling
-|       `-- terminal/
-|           |-- ghostty.nix          # links Ghostty config
-|           `-- tmux.nix             # tmux settings, plugins, and sessionizer
-|-- scripts/
-|   `-- setup.sh                     # first-run macOS bootstrap script
-|-- .gitignore                       # repository-local ignore rules
-|-- README.md                        # project overview and usage notes
-|-- flake.lock                       # locked Nix input revisions
-`-- flake.nix                        # main Nix flake entrypoint
+|-- .github/                  # repository automation
+|   `-- workflows/            # scheduled flake input updates
+|-- config/                   # app configs linked into $HOME
+|   |-- bat/                  # bat Vesper theme
+|   |-- btop/                 # btop Vesper theme
+|   |-- ghostty/              # Ghostty terminal config
+|   |-- nvim/                 # Neovim Lua config and plugin lockfile
+|   `-- vite-plus/            # Vite+ defaults
+|-- hosts/                    # machine entrypoints
+|   `-- kybook/               # nix-darwin and home-manager config
+|-- modules/                  # reusable Nix modules
+|   |-- darwin/               # macOS system and Homebrew modules
+|   `-- home/                 # user shell, editor, terminal, git, and dev modules
+|-- scripts/                  # bootstrap scripts
+|   `-- setup.sh              # first-run macOS setup
+|-- .gitignore                # repository ignore rules
+|-- flake.lock                # locked Nix input revisions
+|-- flake.nix                 # main Nix flake entrypoint
+`-- README.md                 # project overview
 ```
 
-## stack
+## Managed Tools
 
-- shell: fish, starship
-- terminal: ghostty, tmux
-- editor: neovim, zed
-- node: vite+
-- theme: vesper
+- system: nix-darwin, home-manager, nix-homebrew
+- shell: Fish, Starship, fzf, zoxide, eza, direnv
+- terminal: Ghostty, tmux
+- editor: Neovim
+- dev: Git, GitHub CLI, ripgrep, fd, bat, btop, yazi
+- runtimes: Vite+, Bun, pnpm, uv, Zig
+- theme: Vesper

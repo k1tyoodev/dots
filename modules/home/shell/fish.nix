@@ -50,20 +50,9 @@
       end
 
       # proxy
-      function proxy
-        set -gx https_proxy http://127.0.0.1:8234
-        set -gx http_proxy http://127.0.0.1:8234
-        set -gx all_proxy socks5://127.0.0.1:8235
-        echo "proxy enabled"
-      end
-
-      # un-proxy
-      function un-proxy
-        set -e https_proxy
-        set -e http_proxy
-        set -e all_proxy
-        echo "proxy disabled"
-      end
+      set -gx https_proxy http://127.0.0.1:8234
+      set -gx http_proxy http://127.0.0.1:8234
+      set -gx all_proxy socks5://127.0.0.1:8235
 
       # orbstack integration
       source ~/.orbstack/shell/init2.fish 2>/dev/null || true
@@ -87,7 +76,6 @@
 
       # ai coding
       uc = "npx @ccusage/codex@latest";
-      oc = "OPENCODE_DISABLE_CLAUDE_CODE=1 opencode";
       c = "codex --yolo";
       cc = "claude";
       a = "agent -f";
