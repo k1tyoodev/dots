@@ -12,8 +12,6 @@
       upgrade = true;
     };
 
-    caskArgs.no_quarantine = true;
-
     taps = [];
 
     brews = [
@@ -97,6 +95,8 @@
       "google-chrome"
       "hoppscotch"
       "orbstack"
+      "codexbar"
+      "figma"
     ];
   };
 }
