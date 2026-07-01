@@ -5,8 +5,8 @@
   system.defaults = {
     # dock
     dock = {
-      autohide = false;
-      orientation = "left";
+      autohide = true;
+      orientation = "bottom";
       tilesize = 48;
       show-recents = false;
       mru-spaces = false;
