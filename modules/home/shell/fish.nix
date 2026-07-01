@@ -48,6 +48,11 @@
       # zoxide interactive picker
       set -gx _ZO_FZF_OPTS "--no-sort --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C"
 
+      # fish 4.8 embeds core functions, so zoxide cannot read $__fish_data_dir/functions/cd.fish.
+      if not functions --query __zoxide_cd_internal
+        functions cd | string replace --regex -- '^function cd\s' 'function __zoxide_cd_internal ' | source
+      end
+
       # local secrets
       if test -f "$HOME/.dots/secrets/github.fish"
         source "$HOME/.dots/secrets/github.fish"
@@ -79,7 +84,8 @@
       ds = "caffeinate -d";
 
       # ai coding
-      uc = "npx @ccusage/codex@latest";
+      oc = "opencode";
+      uc = "npx ccusage@latest codex --offline";
       c = "codex --yolo";
       cc = "claude";
       a = "agent -f";
