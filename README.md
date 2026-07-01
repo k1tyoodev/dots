@@ -65,5 +65,5 @@ Directory tree is intentionally capped at two nested levels.
 - terminal: Ghostty, tmux
 - editor: Neovim
 - dev: Git, GitHub CLI, ripgrep, fd, bat, btop, yazi
-- runtimes: Vite+, Bun, pnpm, uv, Zig
+- runtimes: Vite+, Bun, pnpm, Rust, uv
 - theme: Vesper

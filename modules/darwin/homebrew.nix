@@ -49,7 +49,6 @@
       "uv"
       "ruff"      # linter + formatter
       "ty"        # type checker
-      "zig"
 
       # media
       "ffmpeg"
