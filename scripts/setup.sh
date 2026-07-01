@@ -99,7 +99,20 @@ else
   success "pnpm already installed"
 fi
 
-# 8. install nil
+# 8. install rust
+if ! command -v rustup >/dev/null 2>&1 && ! [[ -x "$HOME/.cargo/bin/rustup" ]]; then
+  log "Installing Rust via rustup"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+else
+  success "Rust is already installed"
+fi
+
+if [[ -f "$HOME/.cargo/env" ]]; then
+  # shellcheck disable=SC1091
+  . "$HOME/.cargo/env"
+fi
+
+# 9. install nil
 if ! command -v nil >/dev/null 2>&1; then
   log "Installing nil"
   nix profile install nixpkgs#nil
@@ -107,7 +120,7 @@ else
   success "nil already installed"
 fi
 
-# 9. install opencode
+# 10. install opencode
 if ! command -v opencode >/dev/null 2>&1 && ! [[ -x "$HOME/.opencode/bin/opencode" ]]; then
   log "Installing opencode"
   curl -fsSL https://opencode.ai/install | bash
@@ -115,7 +128,7 @@ else
   success "opencode already installed"
 fi
 
-# 10. post-install reminders
+# 11. post-install reminders
 echo
 log "Post-install reminders:"
 echo "  1. Authenticate with GitHub:    gh auth login"

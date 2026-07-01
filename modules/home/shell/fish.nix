@@ -35,8 +35,12 @@
         set -gx PATH "$PNPM_HOME" $PATH
       end
 
-      # cargo
-      fish_add_path $HOME/.cargo/bin
+      # cargo / rustup
+      if test -f "$HOME/.cargo/env.fish"
+        source "$HOME/.cargo/env.fish"
+      else
+        fish_add_path $HOME/.cargo/bin
+      end
 
       # opencode
       fish_add_path $HOME/.opencode/bin
