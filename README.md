@@ -40,10 +40,11 @@ Directory tree is intentionally capped at two nested levels.
 |-- .github/                  # repository automation
 |   `-- workflows/            # scheduled flake input updates
 |-- config/                   # app configs linked into $HOME
-|   |-- bat/                  # bat Vesper theme
-|   |-- btop/                 # btop Vesper theme
+|   |-- bat/                  # bat Cursor Dark/Light themes
+|   |-- btop/                 # btop Cursor Dark/Light themes
 |   |-- ghostty/              # Ghostty terminal config
 |   |-- nvim/                 # Neovim Lua config and plugin lockfile
+|   |-- theme/                # shared macOS appearance helpers
 |   `-- vite-plus/            # Vite+ defaults
 |-- hosts/                    # machine entrypoints
 |   `-- kybook/               # nix-darwin and home-manager config
@@ -66,4 +67,4 @@ Directory tree is intentionally capped at two nested levels.
 - editor: Neovim
 - dev: Git, GitHub CLI, ripgrep, fd, bat, btop, yazi
 - runtimes: Vite+, Bun, pnpm, Rust, uv
-- theme: Vesper
+- theme: Cursor Dark / Cursor Light, following macOS appearance

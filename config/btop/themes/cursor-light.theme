@@ -1,0 +1,17 @@
+theme[main_bg]="#F3F3F3"
+theme[main_fg]="#141414"
+
+theme[title]="#141414"
+theme[hi_fg]="#0064B0"
+theme[selected_bg]="#EAEAEA"
+theme[selected_fg]="#141414"
+theme[inactive_fg]="#141414"
+theme[graph_text]="#3B7E84"
+theme[meter_bg]="#EAEAEA"
+theme[proc_misc]="#176C74"
+
+theme[cpu_box]="#0064B0"
+theme[mem_box]="#92156A"
+theme[net_box]="#176C74"
+theme[proc_box]="#8B5700"
+theme[div_line]="#EAEAEA"

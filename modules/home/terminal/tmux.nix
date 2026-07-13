@@ -1,17 +1,17 @@
 { config, pkgs, lib, ... }:
 
 let
-  # vesper colors
+  # Cursor Dark fallback; hooks below switch these values with terminal appearance.
   colors = {
-    bg = "#101010";
-    bg_elevated = "#1A1A1A";
-    bg_selected = "#232323";
-    fg = "#FFFFFF";
-    fg_muted = "#A0A0A0";
-    fg_dim = "#5C5C5C";
-    accent = "#FFC799";
-    mint = "#99FFE4";
-    border = "#282828";
+    bg = "#141414";
+    bg_elevated = "#181818";
+    bg_selected = "#262626";
+    fg = "#F0F0F0";
+    fg_muted = "#A4A4A4";
+    fg_dim = "#A4A4A4";
+    accent = "#81A1C1";
+    mint = "#B48EAD";
+    border = "#262626";
   };
 in
 {
@@ -94,14 +94,14 @@ in
       bind z resize-pane -Z
 
       # session switcher (fuzzy)
-      bind s display-popup -E -w 40% -h 40% -S "fg=#282828" -b rounded \
+      bind s display-popup -E -w 40% -h 40% -S "fg=#{@cursor_border}" -b rounded \
           "tmux list-sessions -F '#S' | fzf --reverse --border=none --margin=1 --padding=1 \
           --prompt='  ' --pointer='▌' --no-scrollbar \
-          --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C \
+          $(~/.config/theme/fzf-colors) \
           | xargs -I{} tmux switch-client -t {}"
 
       # sessionizer (fuzzy find projects, create/switch session)
-      bind f display-popup -E -w 50% -h 50% -S "fg=#282828" -b rounded "~/.config/tmux/scripts/sessionizer"
+      bind f display-popup -E -w 50% -h 50% -S "fg=#{@cursor_border}" -b rounded "~/.config/tmux/scripts/sessionizer"
 
       # last session
       bind L switch-client -l
@@ -153,6 +153,11 @@ in
 
       # clock
       setw -g clock-mode-colour "${colors.accent}"
+
+      # Ghostty reports terminal appearance changes through these tmux hooks.
+      set-hook -g client-dark-theme 'run-shell "~/.config/tmux/scripts/theme dark"'
+      set-hook -g client-light-theme 'run-shell "~/.config/tmux/scripts/theme light"'
+      run-shell "~/.config/tmux/scripts/theme"
     '';
   };
 
@@ -180,7 +185,7 @@ in
               [[ -n "$dirs" ]] && find $dirs -mindepth 1 -maxdepth 2 -type d 2>/dev/null
           } | fzf --reverse --border=none --margin=1 --padding=1 \
               --prompt='  ' --pointer='▌' --no-scrollbar \
-              --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C
+              $(~/.config/theme/fzf-colors)
       )
 
       [[ -z "$selected" ]] && exit 0
@@ -203,6 +208,45 @@ in
           fi
           tmux switch-client -t "$session_name"
       fi
+    '';
+  };
+
+  home.file.".config/tmux/scripts/theme" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      appearance="''${1:-$(bash ~/.config/theme/current-appearance)}"
+      if [[ "$appearance" == "light" ]]; then
+        bg="#F3F3F3"
+        bg_selected="#EAEAEA"
+        fg="#141414"
+        fg_muted="#141414"
+        fg_dim="#141414"
+        accent="#0064B0"
+        border="#EAEAEA"
+      else
+        bg="#141414"
+        bg_selected="#262626"
+        fg="#F0F0F0"
+        fg_muted="#A4A4A4"
+        fg_dim="#A4A4A4"
+        accent="#81A1C1"
+        border="#262626"
+      fi
+
+      tmux set-option -g status-style "bg=$bg,fg=$fg_muted"
+      tmux set-option -g @cursor_border "$border"
+      tmux set-option -g status-left "#[fg=$accent,bold] #S #[fg=$fg_dim]│ "
+      tmux set-option -g status-right "#[fg=$fg_muted]%-I:%M %p "
+      tmux set-window-option -g window-status-format "#[fg=$fg_dim] #I #W "
+      tmux set-window-option -g window-status-current-format "#[fg=$fg,bold] #I #W "
+      tmux set-option -g pane-border-style "fg=$border"
+      tmux set-option -g pane-active-border-style "fg=$accent"
+      tmux set-option -g message-style "bg=$bg_selected,fg=$fg"
+      tmux set-option -g message-command-style "bg=$bg_selected,fg=$fg"
+      tmux set-window-option -g mode-style "bg=$bg_selected,fg=$fg"
+      tmux set-window-option -g clock-mode-colour "$accent"
     '';
   };
 }

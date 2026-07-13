@@ -33,27 +33,35 @@
     enableFishIntegration = true;
   };
 
-  # btop theme
+  # btop themes are selected by the Fish wrapper based on macOS appearance.
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "vesper";
       theme_background = true;
     };
   };
-  home.file.".config/btop/themes/vesper.theme".source = ../../config/btop/themes/vesper.theme;
+  home.file.".config/btop/themes/cursor-dark.theme".source = ../../config/btop/themes/cursor-dark.theme;
+  home.file.".config/btop/themes/cursor-light.theme".source = ../../config/btop/themes/cursor-light.theme;
+  home.file.".config/btop/cursor-dark.conf".source = ../../config/btop/cursor-dark.conf;
+  home.file.".config/btop/cursor-light.conf".source = ../../config/btop/cursor-light.conf;
 
-  # bat theme
+  # bat selects the pair using its native macOS appearance detection.
   programs.bat = {
     enable = true;
     config = {
-      theme = "vesper";
+      theme = "auto:system";
+      theme-dark = "Cursor Dark";
+      theme-light = "Cursor Light";
       style = "numbers,changes";
       tabs = "2";
     };
-    themes.vesper = {
+    themes."Cursor Dark" = {
       src = ../../config/bat/themes;
-      file = "vesper.tmTheme";
+      file = "cursor-dark.tmTheme";
+    };
+    themes."Cursor Light" = {
+      src = ../../config/bat/themes;
+      file = "cursor-light.tmTheme";
     };
   };
 

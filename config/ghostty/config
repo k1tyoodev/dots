@@ -1,5 +1,5 @@
 # --- Theme and Colors ---
-theme = vesper
+theme = light:Cursor Light,dark:Cursor Dark
 macos-titlebar-style = tabs
 macos-window-shadow = true
 

@@ -25,4 +25,13 @@
   };
 
   programs.home-manager.enable = true;
+
+  home.file.".config/theme/current-appearance" = {
+    source = ../../config/theme/current-appearance;
+    executable = true;
+  };
+  home.file.".config/theme/fzf-colors" = {
+    source = ../../config/theme/fzf-colors;
+    executable = true;
+  };
 }

@@ -82,11 +82,26 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- colorscheme
   {
-    "nexxeln/vesper.nvim",
+    "k1tyoodev/cursor.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("vesper")
+      local function sync_cursor_theme()
+        local appearance = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" })
+        local background = appearance:match("Dark") and "dark" or "light"
+        local colorscheme = "cursor-" .. background
+
+        vim.o.background = background
+        if vim.g.colors_name ~= colorscheme then
+          vim.cmd.colorscheme(colorscheme)
+        end
+      end
+
+      sync_cursor_theme()
+      vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
+        group = vim.api.nvim_create_augroup("cursor-theme", { clear = true }),
+        callback = sync_cursor_theme,
+      })
     end,
   },
 

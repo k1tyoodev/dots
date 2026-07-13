@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ "$(bash "$(dirname "$0")/current-appearance")" == "light" ]]; then
+  printf '%s\n' '--color=bg:#F3F3F3,bg+:#EAEAEA,fg:#141414,fg+:#141414,hl:#0064B0,hl+:#2778C1,pointer:#0064B0,prompt:#92156A,info:#176C74,border:#EAEAEA'
+else
+  printf '%s\n' '--color=bg:#141414,bg+:#262626,fg:#F0F0F0,fg+:#F0F0F0,hl:#81A1C1,hl+:#87A6C4,pointer:#81A1C1,prompt:#B48EAD,info:#88C0D0,border:#262626'
+fi

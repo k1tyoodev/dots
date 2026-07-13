@@ -45,8 +45,21 @@
       # opencode
       fish_add_path $HOME/.opencode/bin
 
-      # zoxide interactive picker
-      set -gx _ZO_FZF_OPTS "--no-sort --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C"
+      # Keep fzf, zi/zoxide, and btop aligned with macOS appearance.
+      function __cursor_theme_sync --on-event fish_prompt --on-event fish_focus_in
+        set -l appearance (~/.config/theme/current-appearance)
+        set -l colors (~/.config/theme/fzf-colors)
+
+        set -gx FZF_DEFAULT_OPTS "--height=40% --layout=reverse --border $colors"
+        set -gx _ZO_FZF_OPTS "--no-sort $colors"
+
+        if test "$appearance" = light
+          set -gx BTOP_CONFIG "$HOME/.config/btop/cursor-light.conf"
+        else
+          set -gx BTOP_CONFIG "$HOME/.config/btop/cursor-dark.conf"
+        end
+      end
+      __cursor_theme_sync
 
       # fish 4.8 embeds core functions, so zoxide cannot read $__fish_data_dir/functions/cd.fish.
       if not functions --query __zoxide_cd_internal
@@ -94,6 +107,11 @@
     };
 
     functions = {
+      btop = ''
+        __cursor_theme_sync
+        command btop --config "$BTOP_CONFIG" $argv
+      '';
+
       rebuild = ''
         set -l darwin_rebuild (command -v darwin-rebuild)
         if test -z "$darwin_rebuild"
@@ -120,7 +138,6 @@
       "--height=40%"
       "--layout=reverse"
       "--border"
-      "--color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C"
     ];
   };
 

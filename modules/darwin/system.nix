@@ -38,7 +38,6 @@
       "com.apple.trackpad.scaling" = 2.5;
 
       # appearance
-      AppleInterfaceStyle = "Dark";
       AppleShowScrollBars = "WhenScrolling";
 
       # window management

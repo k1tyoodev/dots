@@ -1,0 +1,17 @@
+theme[main_bg]="#141414"
+theme[main_fg]="#F0F0F0"
+
+theme[title]="#F0F0F0"
+theme[hi_fg]="#81A1C1"
+theme[selected_bg]="#262626"
+theme[selected_fg]="#F0F0F0"
+theme[inactive_fg]="#A4A4A4"
+theme[graph_text]="#88C0D0"
+theme[meter_bg]="#262626"
+theme[proc_misc]="#D2943E"
+
+theme[cpu_box]="#81A1C1"
+theme[mem_box]="#FC6B83"
+theme[net_box]="#88C0D0"
+theme[proc_box]="#F1B467"
+theme[div_line]="#262626"
