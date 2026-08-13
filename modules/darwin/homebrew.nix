@@ -17,7 +17,6 @@
     brews = [
       # core
       "bash"
-      "fish"
       "starship"
       "tmux"
       "neovim"
@@ -32,7 +31,6 @@
       "eza"
       "bat"
       "television" # modern fzf
-      "yazi"       # tui finder
 
       # dev tools
       "ast-grep"
@@ -40,7 +38,7 @@
       "typos-cli"
       "glow"
       "awscli"
-      "tldr"
+      "tlrc"
 
       # languages & runtimes
       "pipx"      # Avoid polluting the global Python environment
@@ -87,6 +85,7 @@
       "maczip"
       "notion"
       "raycast"
+      "chatgpt"
 
       # dev
       "ghostty"
@@ -95,7 +94,6 @@
       "google-chrome"
       "hoppscotch"
       "orbstack"
-      "codexbar"
       "figma"
     ];
   };

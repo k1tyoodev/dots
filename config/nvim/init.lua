@@ -95,6 +95,10 @@ require("lazy").setup({
         if vim.g.colors_name ~= colorscheme then
           vim.cmd.colorscheme(colorscheme)
         end
+
+        -- cursor.nvim carries the right palette, but some of its generic
+        -- Tree-sitter/LSP mappings do not match Cursor's TextMate scopes.
+        require("cursor-highlights").apply(background)
       end
 
       sync_cursor_theme()

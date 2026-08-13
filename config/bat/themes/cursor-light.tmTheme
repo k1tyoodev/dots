@@ -11,7 +11,7 @@
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#F3F3F3</string>
+				<string>#eeeeee</string>
 				<key>foreground</key>
 				<string>#141414</string>
 				<key>caret</key>
@@ -23,7 +23,7 @@
 				<key>selection</key>
 				<string>#14141424</string>
 				<key>gutter</key>
-				<string>#F3F3F3</string>
+				<string>#eeeeee</string>
 				<key>gutterForeground</key>
 				<string>#1414145C</string>
 			</dict>

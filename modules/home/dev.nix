@@ -27,13 +27,7 @@
     RIPGREP_CONFIG_PATH = "$HOME/.ripgreprc";
   };
 
-  # yazi file manager
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
-  # btop themes are selected by the Fish wrapper based on macOS appearance.
+  # btop themes are selected by the shell wrapper based on macOS appearance.
   programs.btop = {
     enable = true;
     settings = {

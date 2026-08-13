@@ -19,7 +19,7 @@ runs `darwin-rebuild`, installs user-scoped toolchains, and only prompts for
 
 ## Rebuild
 
-After the first setup, rebuild from this checkout with the Fish helper:
+After the first setup, rebuild from this checkout with the helper:
 
 ```sh
 rebuild
@@ -62,9 +62,9 @@ Directory tree is intentionally capped at two nested levels.
 ## Managed Tools
 
 - system: nix-darwin, home-manager, nix-homebrew
-- shell: Fish, Starship, fzf, zoxide, eza, direnv
+- shell: zsh, Starship, fzf, zoxide, eza, direnv
 - terminal: Ghostty, tmux
 - editor: Neovim
-- dev: Git, GitHub CLI, ripgrep, fd, bat, btop, yazi
+- dev: Git, GitHub CLI, ripgrep, fd, bat, btop
 - runtimes: Vite+, Bun, pnpm, Rust, uv
-- theme: Cursor Dark / Cursor Light, following macOS appearance
+- theme: Cursor accents on GrokNight/GrokDay canvas (`#141414` / `#eeeeee`), following macOS appearance

@@ -15,7 +15,7 @@
     wget
   ];
 
-  programs.fish.enable = true;
+  programs.zsh.enable = true;
 
   networking = {
     hostName = "kybook";
@@ -25,7 +25,9 @@
   users.users.${username} = {
     name = username;
     home = "/Users/${username}";
-    shell = pkgs.fish;
+    # Admin users are not managed through users.knownUsers; keep the desired
+    # login shell documented here and switch it with chsh during setup.
+    shell = "/bin/zsh";
   };
 
   system.stateVersion = 5;

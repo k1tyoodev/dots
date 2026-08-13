@@ -1,14 +1,13 @@
 { config, pkgs, lib, ... }:
 
 let
-  # Cursor Dark fallback; hooks below switch these values with terminal appearance.
+  # GrokNight canvas; theme hook switches light/dark at runtime.
   colors = {
     bg = "#141414";
-    bg_elevated = "#181818";
-    bg_selected = "#262626";
+    bg_selected = "#242424";
     fg = "#F0F0F0";
-    fg_muted = "#A4A4A4";
-    fg_dim = "#A4A4A4";
+    fg_muted = "#989898";
+    fg_dim = "#989898";
     accent = "#81A1C1";
     mint = "#B48EAD";
     border = "#262626";
@@ -17,7 +16,7 @@ in
 {
   programs.tmux = {
     enable = true;
-    shell = "${pkgs.fish}/bin/fish";
+    shell = "${pkgs.zsh}/bin/zsh";
     terminal = "tmux-256color";
     prefix = "C-a";
     baseIndex = 1;
@@ -218,21 +217,23 @@ in
 
       appearance="''${1:-$(bash ~/.config/theme/current-appearance)}"
       if [[ "$appearance" == "light" ]]; then
-        bg="#F3F3F3"
-        bg_selected="#EAEAEA"
+        # GrokDay canvas
+        bg="#eeeeee"
+        bg_selected="#dedede"
         fg="#141414"
-        fg_muted="#141414"
-        fg_dim="#141414"
+        fg_muted="#A3A3A3"
+        fg_dim="#A3A3A3"
         accent="#0064B0"
-        border="#EAEAEA"
+        border="#dedede"
       else
+        # GrokNight canvas
         bg="#141414"
-        bg_selected="#262626"
+        bg_selected="#242424"
         fg="#F0F0F0"
-        fg_muted="#A4A4A4"
-        fg_dim="#A4A4A4"
+        fg_muted="#989898"
+        fg_dim="#989898"
         accent="#81A1C1"
-        border="#262626"
+        border="#242424"
       fi
 
       tmux set-option -g status-style "bg=$bg,fg=$fg_muted"
