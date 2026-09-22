@@ -5,10 +5,10 @@
   system.defaults = {
     # dock
     dock = {
-      autohide = true;
-      orientation = "bottom";
-      tilesize = 48;
-      show-recents = false;
+      autohide = false;
+      orientation = "left";
+      tilesize = 43;
+      show-recents = true;
       mru-spaces = false;
       # disable hot corners
       wvous-tl-corner = 1;
