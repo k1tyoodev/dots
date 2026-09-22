@@ -15,6 +15,7 @@
     };
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-homebrew.inputs.brew-src.url = "github:Homebrew/brew/7.0.0";
   };
 
   outputs =
@@ -40,6 +41,10 @@
           {
             nix-homebrew = {
               enable = true;
+              package = inputs.nix-homebrew.inputs.brew-src // {
+                name = "brew-7.0.0";
+                version = "7.0.0";
+              };
               enableRosetta = true;
               user = username;
               autoMigrate = true;
