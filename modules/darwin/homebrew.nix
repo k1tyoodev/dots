@@ -34,6 +34,7 @@
 
       # dev tools
       "ast-grep"
+      "gh"
       "scc"
       "typos-cli"
       "glow"
@@ -41,6 +42,7 @@
       "tlrc"
 
       # languages & runtimes
+      "mise"      # runtime version manager
       "pipx"      # Avoid polluting the global Python environment
       "uv"
       "ruff"      # linter + formatter
@@ -62,6 +64,7 @@
       "curl"
       "wget"
       "cloudflared"
+      "nginx"
       "openssh"
 
       # compression
@@ -82,10 +85,13 @@
       "alcove"
       "cleanshot"
       "iina"
+      "localsend"
       "maczip"
+      "mos@beta"
       "notion"
       "raycast"
       "chatgpt"
+      "zotero"
 
       # dev
       "ghostty"
@@ -95,6 +101,7 @@
       "hoppscotch"
       "orbstack"
       "figma"
+      "tldraw" # tldraw offline
     ];
   };
 }
