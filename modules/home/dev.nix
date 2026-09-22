@@ -27,10 +27,11 @@
     RIPGREP_CONFIG_PATH = "$HOME/.ripgreprc";
   };
 
-  # btop themes are selected by the shell wrapper based on macOS appearance.
+  # Cursor Dark, including launches outside the shell wrapper.
   programs.btop = {
     enable = true;
     settings = {
+      color_theme = "cursor-dark";
       theme_background = true;
     };
   };
@@ -39,13 +40,11 @@
   home.file.".config/btop/cursor-dark.conf".source = ../../config/btop/cursor-dark.conf;
   home.file.".config/btop/cursor-light.conf".source = ../../config/btop/cursor-light.conf;
 
-  # bat selects the pair using its native macOS appearance detection.
+  # Keep bat on Cursor Dark.
   programs.bat = {
     enable = true;
     config = {
-      theme = "auto:system";
-      theme-dark = "Cursor Dark";
-      theme-light = "Cursor Light";
+      theme = "Cursor Dark";
       style = "numbers,changes";
       tabs = "2";
     };

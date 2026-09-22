@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 
-if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
-  printf 'dark\n'
-else
-  printf 'light\n'
-fi
+# Cursor Dark is fixed, independent of macOS appearance.
+printf 'dark\n'

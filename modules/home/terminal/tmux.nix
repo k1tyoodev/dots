@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  # GrokNight canvas; theme hook switches light/dark at runtime.
+  # Cursor Dark on the original GrokNight canvas.
   colors = {
     bg = "#141414";
     bg_selected = "#242424";
@@ -215,7 +215,7 @@ in
     text = ''
       #!/usr/bin/env bash
 
-      appearance="''${1:-$(bash ~/.config/theme/current-appearance)}"
+      appearance="dark"
       if [[ "$appearance" == "light" ]]; then
         # GrokDay canvas
         bg="#eeeeee"

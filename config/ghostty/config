@@ -1,17 +1,19 @@
 # --- Theme and Colors ---
-theme = light:Cursor Light,dark:Cursor Dark
+theme = Cursor Dark
 macos-titlebar-style = tabs
 macos-window-shadow = true
 
 # --- Typography ---
 font-family = Berkeley Mono
+font-family = PingFang SC
 font-size = 12
 font-thicken = true
 adjust-cell-height = 25%
 unfocused-split-opacity = 0.55
-window-theme = auto
-window-width = 130
-window-height = 35
+window-subtitle = working-directory
+window-theme = dark
+window-width = 140
+window-height = 40
 window-padding-x = 8
 window-padding-y = 8
 macos-option-as-alt = true

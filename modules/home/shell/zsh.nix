@@ -46,7 +46,7 @@
       # cargo / rustup
       [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-      # Keep fzf, zoxide, and btop aligned with macOS appearance.
+      # Keep fzf, zi, and btop on Cursor Dark.
       __cursor_theme_sync() {
         local appearance colors
         appearance="$("$HOME/.config/theme/current-appearance")"
@@ -65,6 +65,11 @@
       autoload -Uz add-zsh-hook
       add-zsh-hook precmd __cursor_theme_sync
       __cursor_theme_sync
+
+      # Clear Vesper-only environment settings when reloading an existing shell.
+      [[ "$GLAMOUR_STYLE" == */glow/vesper.json ]] && unset GLAMOUR_STYLE
+      [[ "$GLOW_STYLE" == */glow/vesper.json ]] && unset GLOW_STYLE
+      unset ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE
 
       # Local secrets (zsh format).
       if [[ -f "$HOME/.dots/secrets/github.zsh" ]]; then
