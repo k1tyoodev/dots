@@ -53,6 +53,8 @@ Directory tree is intentionally capped at two nested levels.
 |   `-- home/                 # user shell, editor, terminal, git, and dev modules
 |-- scripts/                  # bootstrap scripts
 |   `-- setup.sh              # first-run macOS setup
+|-- secrets/                  # local-only shell exports, never committed
+|   `-- github.zsh            # GITHUB_PAT_TOKEN, created by hand
 |-- .gitignore                # repository ignore rules
 |-- flake.lock                # locked Nix input revisions
 |-- flake.nix                 # main Nix flake entrypoint
@@ -66,5 +68,5 @@ Directory tree is intentionally capped at two nested levels.
 - terminal: Ghostty, tmux
 - editor: Neovim
 - dev: Git, GitHub CLI, ripgrep, fd, bat, btop
-- runtimes: Vite+, Bun, pnpm, Rust, uv
-- theme: Cursor accents on GrokNight/GrokDay canvas (`#141414` / `#eeeeee`), following macOS appearance
+- runtimes: mise, Vite+, Bun, pnpm, Rust, uv
+- theme: Cursor accents on GrokNight/GrokDay canvas (`#141414` / `#eeeeee`), fixed to Cursor Dark
