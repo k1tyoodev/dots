@@ -87,8 +87,7 @@ require("lazy").setup({
     priority = 1000,
     config = function()
       local function sync_cursor_theme()
-        local appearance = vim.fn.system({ "defaults", "read", "-g", "AppleInterfaceStyle" })
-        local background = appearance:match("Dark") and "dark" or "light"
+        local background = "dark"
         local colorscheme = "cursor-" .. background
 
         vim.o.background = background
@@ -330,7 +329,9 @@ require("lazy").setup({
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").setup({})
+      local treesitter = require("nvim-treesitter")
+      treesitter.setup({})
+      treesitter.install({ "javascript", "typescript", "tsx" })
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           pcall(vim.treesitter.start)
