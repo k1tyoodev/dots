@@ -3,13 +3,11 @@ set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[*]${NC} $1"; }
 success() { echo -e "${GREEN}[✓]${NC} $1"; }
-warn() { echo -e "${YELLOW}[!]${NC} $1"; }
 error() { echo -e "${RED}[✗]${NC} $1"; exit 1; }
 
 # check if running on macOS
@@ -20,7 +18,7 @@ error() { echo -e "${RED}[✗]${NC} $1"; exit 1; }
 
 # check architecture
 ARCH="$(uname -m)"
-[[ "$ARCH" == "arm64" ]] || warn "This config is tuned for Apple Silicon; detected $ARCH"
+[[ "$ARCH" == "arm64" ]] || error "This flake requires native Apple Silicon (arm64); detected $ARCH. On Apple Silicon, reopen Terminal without Rosetta."
 
 log "Starting setup..."
 
@@ -30,7 +28,33 @@ HOSTNAME="$(scutil --get LocalHostName 2>/dev/null || hostname -s)"
 [[ "$HOSTNAME" == "kybook" ]] || error "This flake targets LocalHostName kybook; set it or add this Mac to flake.nix first"
 git --version >/dev/null 2>&1 || error "Git is required before setup can clone dots; install the Xcode Command Line Tools first"
 
-# 1. install nix (if not installed)
+# 1. validate or clone the checkout before installing system tools
+DOTS_DIR="${DOTS_DIR:-$HOME/.dots}"
+DOTS_REPO_URL="${DOTS_REPO_URL:-https://github.com/k1tyoodev/dots.git}"
+[[ "$DOTS_DIR" == "$HOME/.dots" ]] || error "This config requires the checkout at $HOME/.dots"
+
+if [[ -f "${BASH_SOURCE[0]:-}" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+  [[ -d "$DOTS_DIR/scripts" && "$SCRIPT_DIR" == "$(cd "$DOTS_DIR/scripts" && pwd -P)" ]] || error "Run the setup script from $HOME/.dots/scripts/setup.sh"
+fi
+
+if [[ ! -e "$DOTS_DIR" && ! -L "$DOTS_DIR" ]]; then
+  log "Cloning dots into $DOTS_DIR"
+  git clone "$DOTS_REPO_URL" "$DOTS_DIR"
+fi
+
+[[ -d "$DOTS_DIR" ]] || error "$DOTS_DIR is not a directory"
+DOTS_ROOT="$(cd "$DOTS_DIR" && pwd -P)"
+REPO_ROOT="$(git -C "$DOTS_DIR" rev-parse --show-toplevel 2>/dev/null)" || error "$DOTS_DIR is not a Git checkout"
+[[ "$REPO_ROOT" == "$DOTS_ROOT" ]] || error "$DOTS_DIR must be the Git repository root"
+for required in flake.nix flake.lock "hosts/$HOSTNAME/default.nix" "hosts/$HOSTNAME/home.nix" scripts/setup.sh; do
+  [[ -f "$DOTS_DIR/$required" ]] || error "Missing $required in $DOTS_DIR"
+done
+
+cd "$DOTS_DIR"
+success "Using validated checkout at $DOTS_DIR"
+
+# 2. install nix (if not installed)
 if ! command -v nix >/dev/null 2>&1; then
   log "Installing Nix via Determinate Systems installer"
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
@@ -40,25 +64,8 @@ else
   success "Nix is already installed"
 fi
 
-# 2. clone dotfiles (if not already there)
-DOTS_DIR="${DOTS_DIR:-$HOME/.dots}"
-DOTS_REPO_URL="${DOTS_REPO_URL:-https://github.com/k1tyoodev/dots.git}"
-
-if [[ ! -d "$DOTS_DIR" ]]; then
-  log "Cloning dots into $DOTS_DIR"
-  git clone "$DOTS_REPO_URL" "$DOTS_DIR"
-else
-  success "Using existing dots at $DOTS_DIR"
-fi
-
-cd "$DOTS_DIR"
-mkdir -p "$DOTS_DIR/secrets"
-
-# 3. confirm host config exists
-log "Detected hostname: $HOSTNAME"
-
-# check if host config exists
-[[ -d "hosts/$HOSTNAME" ]] || error "No host config found at hosts/$HOSTNAME"
+# 3. create user directories
+mkdir -p "$DOTS_DIR/secrets" "$HOME/Pictures/Screenshots"
 
 # 4. first-time nix-darwin setup
 if ! command -v darwin-rebuild >/dev/null 2>&1; then
@@ -76,6 +83,7 @@ success "System configured"
 log "Installing Node.js, Python, Rust, and Go via mise"
 (cd "$HOME" && /opt/homebrew/bin/mise install)
 
+export NPM_CONFIG_PREFIX="$HOME/.local"
 log "Installing pnpm, Codex CLI, and portless via npm"
 (cd "$HOME" && /opt/homebrew/bin/mise exec -- npm install -g pnpm @openai/codex portless)
 /opt/homebrew/bin/mise reshim

@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  home.sessionPath = [ "$HOME/.local/share/mise/shims" ];
+  home.sessionPath = [ "$HOME/.local/share/mise/shims" "$HOME/.local/bin" ];
+
+  home.sessionVariables.NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.local";
 
   xdg.configFile."mise/config.toml".text = ''
     [tools]

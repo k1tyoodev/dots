@@ -13,15 +13,31 @@ and LocalHostName `kybook`. Set those names first, or update `flake.nix`,
 setup can clone the repo; install the Xcode Command Line Tools if
 `git --version` fails.
 
-Run the bootstrap script as your normal user:
+Install the Command Line Tools with `xcode-select --install`, wait for the
+installer to finish, and verify `git --version`. If needed, set the hostname
+with `sudo scutil --set LocalHostName kybook`.
+
+Clone to the required location and run the bootstrap script as your normal user:
+
+```sh
+git clone https://github.com/k1tyoodev/dots.git ~/.dots
+cd ~/.dots
+bash scripts/setup.sh
+```
+
+Alternatively, let the script clone to `~/.dots`:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/k1tyoodev/dots/main/scripts/setup.sh | bash
 ```
 
-The script installs Nix when needed, checks the matching host under `hosts/`,
-runs `darwin-rebuild`, installs user-scoped toolchains, and only prompts for
-`sudo` during the system switch.
+The script rejects unsupported architectures, account/host mismatches, and
+invalid checkouts before installing Nix. The checkout must be `~/.dots`;
+running a copy elsewhere or setting another `DOTS_DIR` is rejected. Existing
+checkouts are reused without pulling or discarding local changes.
+It creates `~/Pictures/Screenshots`, runs `darwin-rebuild`, and installs
+user-scoped toolchains. Run it without sudo; the Nix installer and system
+switch request administrator privileges when needed.
 
 Homebrew installs ComicShannsMono Nerd Font for Ghostty and Paper Mono.
 Git commits are signed by default; import the private GPG key matching
@@ -31,6 +47,37 @@ The setup script installs Codex CLI for the `c` alias. The `cc` and `a`
 aliases need their CLIs installed separately.
 
 If Home Manager creates `.backup` files, review them before removing them.
+
+### Recover from an interrupted installation
+
+Setup stops at the first failed command. Earlier installations and system
+changes remain in place; there is no automatic rollback. Fix the reported
+cause, then rerun `bash ~/.dots/scripts/setup.sh`. This retries the workflow,
+including the system switch and npm installation, rather than resuming a saved step.
+
+- If a clone was interrupted, inspect `~/.dots`. Preserve any local work before
+  moving an incomplete checkout aside and cloning again.
+- If Nix was installed but is not found, open a new terminal or run
+  `. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh` before retrying.
+- If Nix or Homebrew downloads fail, restore network access and retry. A failed
+  Homebrew bundle can leave system settings and some apps already installed.
+- If activation reports conflicting `/etc` files or an existing `.backup`,
+  inspect and back up the named files before resolving the conflict. Do not
+  delete configuration files blindly.
+- If the system switch succeeded and only mise/npm failed, retry just the
+  remaining commands as your normal user:
+
+  ```sh
+  cd ~
+  /opt/homebrew/bin/mise install
+  NPM_CONFIG_PREFIX="$HOME/.local" /opt/homebrew/bin/mise exec -- npm install -g pnpm @openai/codex portless
+  /opt/homebrew/bin/mise reshim
+  ```
+
+Open a new terminal and verify `mise doctor`, `npm config get prefix`,
+`pnpm --version`, `codex --version`, and `portless --version`. The npm prefix
+should be `/Users/k1tyoo/.local`. Restore signing keys and authenticate apps
+separately; a successful setup does not restore credentials or application data.
 
 ## Rebuild
 
@@ -57,7 +104,10 @@ uv remains available for Python dependencies and virtual environments.
 The setup script installs pnpm, Codex CLI, and portless globally through npm.
 To install them on an existing machine, run
 `npm install -g pnpm @openai/codex portless` and `mise reshim`.
-If npm uses a per-Node-version prefix, repeat this after switching Node versions.
+Home Manager sets `NPM_CONFIG_PREFIX` to `~/.local`, and setup explicitly uses
+the same prefix before the new shell environment is loaded. This takes
+precedence over an existing `.npmrc` prefix without replacing that file.
+Global npm tools therefore remain available across Node version changes.
 
 ## Structure
 
