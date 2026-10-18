@@ -20,6 +20,7 @@
       ".env"
       ".env.local"
       ".env*.local"
+      "**/.claude/settings.local.json"
       "node_modules/"
       "__pycache__/"
       "*.pyc"

@@ -17,14 +17,16 @@
       typeset -U path PATH
       path=(
         "$HOME/.local/bin"
-        "/opt/homebrew/opt/node@24/bin"
+        "$HOME/.local/share/mise/shims"
         "$HOME/.nix-profile/bin"
         "/etc/profiles/per-user/$USER/bin"
         "/run/current-system/sw/bin"
         "/nix/var/nix/profiles/default/bin"
-        "$HOME/.opencode/bin"
+        "$HOME/.cargo/bin"
         $path
       )
+
+      eval "$(/opt/homebrew/bin/mise activate zsh)"
 
       # Match terminal tools to the macOS appearance.
       __cursor_theme_sync() {
@@ -55,11 +57,10 @@
       fi
 
       # proxy
-      export https_proxy=http://127.0.0.1:6152
-      export http_proxy=http://127.0.0.1:6152
-
-      # OrbStack integration
-      source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null || true
+      if /usr/bin/nc -z 127.0.0.1 6152 2>/dev/null; then
+        export https_proxy=http://127.0.0.1:6152
+        export http_proxy=http://127.0.0.1:6152
+      fi
 
       o() {
         open "$@" -a Cursor
@@ -94,6 +95,7 @@
       reload = "source ~/.zshrc";
 
       py = "python3";
+      pn = "pnpm";
       ds = "caffeinate -d";
 
       # ai coding

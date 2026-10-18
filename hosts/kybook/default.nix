@@ -8,9 +8,11 @@
   nix.enable = false;
   nixpkgs.config.allowUnfree = true;
 
-  # curl and wget come from Homebrew; git comes from home-manager.
   environment.systemPackages = with pkgs; [
+    curl
+    git
     vim
+    wget
   ];
 
   programs.zsh.enable = true;

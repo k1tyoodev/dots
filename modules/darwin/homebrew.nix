@@ -11,29 +11,44 @@
     brews = [
       # core
       "bash"
+      "starship"
       "tmux"
+      "neovim"
       "btop"
       "mole"
 
       # search & navigation
       "fd"
+      "fzf"
       "ripgrep"
+      "zoxide"
       "eza"
+      "bat"
       "television" # modern fzf
 
       # dev tools
+      "ast-grep"
+      "gh"
+      "git-lfs"
+      "gnupg"
       "scc"
+      "typos-cli"
+      "glow"
+      "awscli"
       "tlrc"
 
       # languages & runtimes
-      "node@24"   # Node.js with bundled npm
+      "mise"
+      "pipx"
       "uv"
       "ruff"      # linter + formatter
+      "ty"
 
       # media
       "ffmpeg"
       "imagemagick"
       "poppler"
+      "resvg"
 
       # data
       "jq"
@@ -49,6 +64,7 @@
       "openssh"
 
       # compression
+      "sevenzip"
       "zstd"
       "xz"
 
@@ -71,6 +87,8 @@
       "notion"
       "raycast"
       "chatgpt"
+      "grok-bot"
+      "linear"
       "zotero"
 
       # dev
@@ -78,9 +96,13 @@
       "cursor"
       "git-credential-manager"
       "google-chrome"
+      "helium-browser"
       "hoppscotch"
-      "orbstack"
-      "figma"
+      "paper-design"
+
+      # fonts
+      "font-paper-mono"
+      "font-comic-shanns-mono-nerd-font"
     ];
   };
 }

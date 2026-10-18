@@ -4,7 +4,7 @@ macos-titlebar-style = tabs
 macos-window-shadow = true
 
 # --- Typography ---
-font-family = Berkeley Mono
+font-family = ComicShannsMono Nerd Font
 font-family = PingFang SC
 font-size = 12
 font-thicken = true

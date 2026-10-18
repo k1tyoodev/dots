@@ -24,6 +24,12 @@ ARCH="$(uname -m)"
 
 log "Starting setup..."
 
+# verify this personal flake can target the current Mac before installing Nix
+[[ "$(id -un)" == "k1tyoo" ]] || error "This flake targets macOS user k1tyoo; update flake.nix for this account first"
+HOSTNAME="$(scutil --get LocalHostName 2>/dev/null || hostname -s)"
+[[ "$HOSTNAME" == "kybook" ]] || error "This flake targets LocalHostName kybook; set it or add this Mac to flake.nix first"
+git --version >/dev/null 2>&1 || error "Git is required before setup can clone dots; install the Xcode Command Line Tools first"
+
 # 1. install nix (if not installed)
 if ! command -v nix >/dev/null 2>&1; then
   log "Installing Nix via Determinate Systems installer"
@@ -46,9 +52,9 @@ else
 fi
 
 cd "$DOTS_DIR"
+mkdir -p "$DOTS_DIR/secrets"
 
-# 3. get hostname
-HOSTNAME="$(scutil --get LocalHostName 2>/dev/null || hostname -s)"
+# 3. confirm host config exists
 log "Detected hostname: $HOSTNAME"
 
 # check if host config exists
@@ -66,22 +72,21 @@ fi
 
 success "System configured"
 
-# 5. install opencode
-if ! command -v opencode >/dev/null 2>&1 && ! [[ -x "$HOME/.opencode/bin/opencode" ]]; then
-  log "Installing opencode"
-  curl -fsSL https://opencode.ai/install | bash
-else
-  success "opencode already installed"
-fi
+# 5. install language toolchains
+log "Installing Node.js, Python, Rust, and Go via mise"
+(cd "$HOME" && /opt/homebrew/bin/mise install)
+
+log "Installing pnpm, Codex CLI, and portless via npm"
+(cd "$HOME" && /opt/homebrew/bin/mise exec -- npm install -g pnpm @openai/codex portless)
+/opt/homebrew/bin/mise reshim
 
 # 6. post-install reminders
 echo
 log "Post-install reminders:"
 echo "  1. Authenticate with GitHub:    gh auth login"
 echo "  2. Create local secrets:        echo 'export GITHUB_PAT_TOKEN=...' > ~/.dots/secrets/github.zsh"
-echo "  3. Configure Graphite:          graphite auth --token ..."
-echo "  4. Install opencode deps:       cd ~/.config/opencode && npm install"
-echo "  5. Install macOS apps:          magnet, bob, infuse"
-echo "  6. Restart your terminal"
+echo "  3. Optional: install and configure Graphite separately"
+echo "  4. Install macOS apps:          magnet, bob, infuse"
+echo "  5. Restart your terminal"
 echo ""
 success "Setup complete!"

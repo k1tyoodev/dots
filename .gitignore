@@ -12,10 +12,6 @@ secrets/*.token
 # raycast (synced via raycast itself)
 config/raycast/
 
-# opencode runtime
-config/opencode/node_modules/
-config/opencode/.opencode/
-
 # editor
 .idea/
 .vscode/

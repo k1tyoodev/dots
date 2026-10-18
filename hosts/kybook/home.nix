@@ -4,7 +4,6 @@
   imports = [
     ../../modules/home/editors/neovim.nix
     ../../modules/home/git.nix
-    ../../modules/home/packages/node.nix
     ../../modules/home/shell/zsh.nix
     ../../modules/home/shell/starship.nix
     ../../modules/home/terminal/ghostty.nix

@@ -1,6 +1,19 @@
 { config, pkgs, ... }:
 
 {
+  home.sessionPath = [ "$HOME/.local/share/mise/shims" ];
+
+  xdg.configFile."mise/config.toml".text = ''
+    [tools]
+    node = "24"
+    python = "latest"
+    rust = "stable"
+    go = "latest"
+
+    [settings]
+    idiomatic_version_file_enable_tools = ["node", "python", "rust", "go"]
+  '';
+
   # fd (better find) - installed via homebrew but configure here
   programs.fd = {
     enable = true;
