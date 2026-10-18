@@ -36,10 +36,9 @@ fi
 
 # 2. clone dotfiles (if not already there)
 DOTS_DIR="${DOTS_DIR:-$HOME/.dots}"
-DOTS_REPO_URL="${DOTS_REPO_URL:-}"
+DOTS_REPO_URL="${DOTS_REPO_URL:-https://github.com/k1tyoodev/dots.git}"
 
 if [[ ! -d "$DOTS_DIR" ]]; then
-  [[ -n "$DOTS_REPO_URL" ]] || error "Set DOTS_REPO_URL before first setup clone"
   log "Cloning dots into $DOTS_DIR"
   git clone "$DOTS_REPO_URL" "$DOTS_DIR"
 else
@@ -67,60 +66,7 @@ fi
 
 success "System configured"
 
-# 4b. clean up home-manager *.backup files (generated when local config diverges from Nix store)
-if command -v fd >/dev/null 2>&1; then
-  log "Cleaning up home-manager backup files in ~/.config"
-  fd --hidden --no-ignore --type f --extension backup . "$HOME/.config" --exec rm
-else
-  warn "fd not on PATH — skipping backup cleanup (run manually: fd -HI -tf -e backup . ~/.config -x rm)"
-fi
-
-# 5. install vite+
-if ! command -v vite >/dev/null 2>&1 && ! [[ -x "$HOME/.vite-plus/bin/vite" ]]; then
-  log "Installing Vite+ toolchain"
-  curl -fsSL https://vite.plus/install.sh | sh
-else
-  success "vite+ already installed"
-fi
-
-# 6. install bun
-if ! command -v bun >/dev/null 2>&1 && ! [[ -x "$HOME/.bun/bin/bun" ]]; then
-  log "Installing Bun"
-  curl -fsSL https://bun.sh/install | bash
-else
-  success "bun already installed"
-fi
-
-# 7. install pnpm
-if ! command -v pnpm >/dev/null 2>&1 && ! [[ -x "$HOME/Library/pnpm/pnpm" ]]; then
-  log "Installing pnpm"
-  curl -fsSL https://get.pnpm.io/install.sh | sh -
-else
-  success "pnpm already installed"
-fi
-
-# 8. install rust
-if ! command -v rustup >/dev/null 2>&1 && ! [[ -x "$HOME/.cargo/bin/rustup" ]]; then
-  log "Installing Rust via rustup"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-else
-  success "Rust is already installed"
-fi
-
-if [[ -f "$HOME/.cargo/env" ]]; then
-  # shellcheck disable=SC1091
-  . "$HOME/.cargo/env"
-fi
-
-# 9. install nil
-if ! command -v nil >/dev/null 2>&1; then
-  log "Installing nil"
-  nix profile install nixpkgs#nil
-else
-  success "nil already installed"
-fi
-
-# 10. install opencode
+# 5. install opencode
 if ! command -v opencode >/dev/null 2>&1 && ! [[ -x "$HOME/.opencode/bin/opencode" ]]; then
   log "Installing opencode"
   curl -fsSL https://opencode.ai/install | bash
@@ -128,13 +74,13 @@ else
   success "opencode already installed"
 fi
 
-# 11. post-install reminders
+# 6. post-install reminders
 echo
 log "Post-install reminders:"
 echo "  1. Authenticate with GitHub:    gh auth login"
 echo "  2. Create local secrets:        echo 'export GITHUB_PAT_TOKEN=...' > ~/.dots/secrets/github.zsh"
 echo "  3. Configure Graphite:          graphite auth --token ..."
-echo "  4. Install opencode deps:       cd ~/.config/opencode && bun install"
+echo "  4. Install opencode deps:       cd ~/.config/opencode && npm install"
 echo "  5. Install macOS apps:          magnet, bob, infuse"
 echo "  6. Restart your terminal"
 echo ""

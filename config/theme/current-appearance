@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-# Cursor Dark is fixed, independent of macOS appearance.
-printf 'dark\n'
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+  printf 'dark\n'
+else
+  printf 'light\n'
+fi

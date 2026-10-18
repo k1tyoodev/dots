@@ -6,7 +6,7 @@
     # dock
     dock = {
       autohide = false;
-      orientation = "left";
+      orientation = "bottom";
       tilesize = 43;
       show-recents = true;
       mru-spaces = false;

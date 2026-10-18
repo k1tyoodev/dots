@@ -1,21 +1,21 @@
 { config, pkgs, lib, ... }:
 
 let
-  # Cursor Dark on the original GrokNight canvas.
   colors = {
-    bg = "#141414";
-    bg_selected = "#242424";
-    fg = "#F0F0F0";
-    fg_muted = "#989898";
-    fg_dim = "#989898";
-    accent = "#81A1C1";
+    bg = "#f3f3f3";
+    bg_selected = "#d9d9d9";
+    fg = "#252525";
+    fg_muted = "#5c5c5c";
+    fg_dim = "#5c5c5c";
+    accent = "#3c7cab";
     mint = "#B48EAD";
-    border = "#262626";
+    border = "#d9d9d9";
   };
 in
 {
   programs.tmux = {
     enable = true;
+    package = null; # installed via homebrew
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "tmux-256color";
     prefix = "C-a";
@@ -215,16 +215,18 @@ in
     text = ''
       #!/usr/bin/env bash
 
-      appearance="dark"
+      appearance="$1"
+      if [[ -z "$appearance" ]]; then
+        appearance="$(~/.config/theme/current-appearance)"
+      fi
       if [[ "$appearance" == "light" ]]; then
-        # GrokDay canvas
-        bg="#eeeeee"
-        bg_selected="#dedede"
-        fg="#141414"
-        fg_muted="#A3A3A3"
-        fg_dim="#A3A3A3"
-        accent="#0064B0"
-        border="#dedede"
+        bg="#f3f3f3"
+        bg_selected="#d9d9d9"
+        fg="#252525"
+        fg_muted="#5c5c5c"
+        fg_dim="#5c5c5c"
+        accent="#3c7cab"
+        border="#d9d9d9"
       else
         # GrokNight canvas
         bg="#141414"

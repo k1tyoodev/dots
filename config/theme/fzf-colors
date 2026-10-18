@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ "$(bash "$(dirname "$0")/current-appearance")" == "light" ]]; then
-  # GrokDay bg_base
-  printf '%s\n' '--color=bg:#eeeeee,bg+:#dedede,fg:#141414,fg+:#141414,hl:#0064B0,hl+:#2778C1,pointer:#0064B0,prompt:#92156A,info:#176C74,border:#dedede'
+  printf '%s\n' '--color=bg:#f3f3f3,bg+:#d9d9d9,fg:#252525,fg+:#252525,hl:#3c7cab,hl+:#6299c3,pointer:#3c7cab,prompt:#b8448b,info:#4c7f8c,border:#d9d9d9'
 else
   # GrokNight bg_base
   printf '%s\n' '--color=bg:#141414,bg+:#242424,fg:#F0F0F0,fg+:#F0F0F0,hl:#81A1C1,hl+:#87A6C4,pointer:#81A1C1,prompt:#B48EAD,info:#88C0D0,border:#242424'

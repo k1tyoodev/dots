@@ -4,55 +4,36 @@
   homebrew = {
     enable = true;
 
-    onActivation = {
-      # "zap" removes everything not listed here
-      # start with "none" until verified, then switch to "zap"
-      cleanup = "none"; # change to "zap" after verifying all packages are listed
-      autoUpdate = true;
-      upgrade = true;
-    };
+    onActivation.cleanup = "none";
 
     taps = [];
 
     brews = [
       # core
       "bash"
-      "starship"
       "tmux"
-      "neovim"
       "btop"
       "mole"
 
       # search & navigation
       "fd"
-      "fzf"
       "ripgrep"
-      "zoxide"
       "eza"
-      "bat"
       "television" # modern fzf
 
       # dev tools
-      "ast-grep"
-      "gh"
       "scc"
-      "typos-cli"
-      "glow"
-      "awscli"
       "tlrc"
 
       # languages & runtimes
-      "mise"      # runtime version manager
-      "pipx"      # Avoid polluting the global Python environment
+      "node@24"   # Node.js with bundled npm
       "uv"
       "ruff"      # linter + formatter
-      "ty"        # type checker
 
       # media
       "ffmpeg"
       "imagemagick"
       "poppler"
-      "resvg"
 
       # data
       "jq"
@@ -68,7 +49,6 @@
       "openssh"
 
       # compression
-      "sevenzip"
       "zstd"
       "xz"
 
@@ -101,7 +81,6 @@
       "hoppscotch"
       "orbstack"
       "figma"
-      "tldraw" # tldraw offline
     ];
   };
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Converted directly from Cursor.app cursor-light-color-theme.json. -->
+<!-- Syntax colors from Cursor.app; base colors match Ghostty Cursor Light. -->
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -11,21 +11,21 @@
 			<key>settings</key>
 			<dict>
 				<key>background</key>
-				<string>#eeeeee</string>
+				<string>#f3f3f3</string>
 				<key>foreground</key>
-				<string>#141414</string>
+				<string>#252525</string>
 				<key>caret</key>
-				<string>#141414</string>
+				<string>#252525</string>
 				<key>invisibles</key>
-				<string>#1414144D</string>
+				<string>#2525254D</string>
 				<key>lineHighlight</key>
-				<string>#EAEAEA</string>
+				<string>#d9d9d9</string>
 				<key>selection</key>
-				<string>#14141424</string>
+				<string>#25252524</string>
 				<key>gutter</key>
-				<string>#eeeeee</string>
+				<string>#f3f3f3</string>
 				<key>gutterForeground</key>
-				<string>#1414145C</string>
+				<string>#2525255C</string>
 			</dict>
 		</dict>
 		<dict>

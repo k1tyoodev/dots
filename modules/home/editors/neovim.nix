@@ -2,7 +2,7 @@
 
 {
   # nvim-treesitter's parser installer uses the CLI to build grammars.
-  home.packages = [ pkgs.tree-sitter ];
+  home.packages = [ pkgs.tree-sitter pkgs.nil ];
 
   programs.neovim = {
     enable = true;

@@ -1,9 +1,9 @@
 local M = {}
 
--- Canvas matches Grok Build bg_base (groknight / grokday) and Ghostty.
+-- Canvas matches Ghostty's terminal backgrounds.
 local canvas = {
   dark = "#141414",
-  light = "#eeeeee",
+  light = "#f3f3f3",
 }
 
 -- Syntax defaults match Cursor 3.16.26. At runtime token and semantic colors

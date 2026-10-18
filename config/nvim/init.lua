@@ -87,7 +87,7 @@ require("lazy").setup({
     priority = 1000,
     config = function()
       local function sync_cursor_theme()
-        local background = "dark"
+        local background = vim.fn.trim(vim.fn.system({ vim.fn.expand("~/.config/theme/current-appearance") }))
         local colorscheme = "cursor-" .. background
 
         vim.o.background = background

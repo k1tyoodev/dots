@@ -17,7 +17,6 @@
       "*.swp"
       "*.swo"
       "*~"
-      "**/.claude/settings.local.json"
       ".env"
       ".env.local"
       ".env*.local"

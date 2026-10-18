@@ -4,6 +4,7 @@
   # fd (better find) - installed via homebrew but configure here
   programs.fd = {
     enable = true;
+    package = null;
     ignores = [
       ".git/"
       "node_modules/"
@@ -27,11 +28,11 @@
     RIPGREP_CONFIG_PATH = "$HOME/.ripgreprc";
   };
 
-  # Cursor Dark, including launches outside the shell wrapper.
   programs.btop = {
     enable = true;
+    package = null; # installed via homebrew
     settings = {
-      color_theme = "cursor-dark";
+      color_theme = "cursor-light";
       theme_background = true;
     };
   };
@@ -40,11 +41,12 @@
   home.file.".config/btop/cursor-dark.conf".source = ../../config/btop/cursor-dark.conf;
   home.file.".config/btop/cursor-light.conf".source = ../../config/btop/cursor-light.conf;
 
-  # Keep bat on Cursor Dark.
   programs.bat = {
     enable = true;
     config = {
-      theme = "Cursor Dark";
+      theme = "auto:system";
+      "theme-light" = "Cursor Light";
+      "theme-dark" = "Cursor Dark";
       style = "numbers,changes";
       tabs = "2";
     };

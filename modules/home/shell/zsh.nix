@@ -17,36 +17,16 @@
       typeset -U path PATH
       path=(
         "$HOME/.local/bin"
-        "$HOME/.kimi-code/bin"
+        "/opt/homebrew/opt/node@24/bin"
         "$HOME/.nix-profile/bin"
         "/etc/profiles/per-user/$USER/bin"
         "/run/current-system/sw/bin"
         "/nix/var/nix/profiles/default/bin"
-        "$HOME/.bun/bin"
-        "$HOME/Library/pnpm"
-        "$HOME/.cargo/bin"
         "$HOME/.opencode/bin"
         $path
       )
 
-      # vite+ (its generated 0.2.1 script requests the invalid shell name
-      # "shell_zsh"; load the environment/function section and initialize the
-      # completion protocol with the supported "zsh" name instead).
-      if [[ -f "$HOME/.vite-plus/env" ]]; then
-        source <(sed '/^# Dynamic shell completion/,$d' "$HOME/.vite-plus/env")
-        if (( $+commands[vp] )); then
-          eval "$(VP_COMPLETE=zsh vp completions)"
-        fi
-      fi
-
-      # bun / pnpm
-      export BUN_INSTALL="$HOME/.bun"
-      export PNPM_HOME="$HOME/Library/pnpm"
-
-      # cargo / rustup
-      [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
-
-      # Keep fzf, zi, and btop on Cursor Dark.
+      # Match terminal tools to the macOS appearance.
       __cursor_theme_sync() {
         local appearance colors
         appearance="$("$HOME/.config/theme/current-appearance")"
@@ -66,9 +46,7 @@
       add-zsh-hook precmd __cursor_theme_sync
       __cursor_theme_sync
 
-      # Clear Vesper-only environment settings when reloading an existing shell.
-      [[ "$GLAMOUR_STYLE" == */glow/vesper.json ]] && unset GLAMOUR_STYLE
-      [[ "$GLOW_STYLE" == */glow/vesper.json ]] && unset GLOW_STYLE
+      # Clear the previous autosuggestion color when reloading an existing shell.
       unset ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE
 
       # Local secrets (zsh format).
@@ -106,24 +84,21 @@
 
     shellAliases = {
       g = "git";
-      t = "tlrd";
+      t = "tldr";
 
-      ll = "eza -l -g --git --group-directories-last";
-      la = "eza -la -g --git --group-directories-last";
+      ll = "eza -l -g --git --group-directories-first";
+      la = "eza -la -g --git --group-directories-first";
       llt = "eza -1 --git --tree --git-ignore";
 
       zshrc = "nvim ~/.dots/modules/home/shell/zsh.nix";
       reload = "source ~/.zshrc";
 
       py = "python3";
-      pn = "pnpm";
       ds = "caffeinate -d";
 
       # ai coding
-      oc = "opencode";
-      uc = "npx ccusage@latest codex --offline";
-      c = "codex --yolo";
       cc = "claude";
+      c = "codex --yolo";
       a = "agent -f";
       scc = "scc --no-complexity --no-cocomo --no-size";
     };
@@ -146,6 +121,7 @@
 
   programs.eza = {
     enable = true;
+    package = null; # installed via homebrew
     enableZshIntegration = true;
     git = true;
     icons = "auto";

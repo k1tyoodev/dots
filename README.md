@@ -17,6 +17,8 @@ The script installs Nix when needed, checks the matching host under `hosts/`,
 runs `darwin-rebuild`, installs user-scoped toolchains, and only prompts for
 `sudo` during the system switch.
 
+If Home Manager creates `.backup` files, review them before removing them.
+
 ## Rebuild
 
 After the first setup, rebuild from this checkout with the helper:
@@ -31,6 +33,8 @@ Equivalent command:
 sudo darwin-rebuild switch --flake ~/.dots
 ```
 
+Rebuilds do not automatically update or upgrade Homebrew packages; update them separately when intended.
+
 ## Structure
 
 Directory tree is intentionally capped at two nested levels.
@@ -44,8 +48,7 @@ Directory tree is intentionally capped at two nested levels.
 |   |-- btop/                 # btop Cursor Dark/Light themes
 |   |-- ghostty/              # Ghostty terminal config
 |   |-- nvim/                 # Neovim Lua config and plugin lockfile
-|   |-- theme/                # shared macOS appearance helpers
-|   `-- vite-plus/            # Vite+ defaults
+|   `-- theme/                # shell color helpers
 |-- hosts/                    # machine entrypoints
 |   `-- kybook/               # nix-darwin and home-manager config
 |-- modules/                  # reusable Nix modules
@@ -67,6 +70,6 @@ Directory tree is intentionally capped at two nested levels.
 - shell: zsh, Starship, fzf, zoxide, eza, direnv
 - terminal: Ghostty, tmux
 - editor: Neovim
-- dev: Git, GitHub CLI, ripgrep, fd, bat, btop
-- runtimes: mise, Vite+, Bun, pnpm, Rust, uv
-- theme: Cursor accents on GrokNight/GrokDay canvas (`#141414` / `#eeeeee`), fixed to Cursor Dark
+- dev: Git, GitHub CLI, ripgrep, fd, bat, btop, nil
+- runtimes: Node.js 24 with bundled npm (Homebrew), uv
+- theme: Ghostty, bat, tmux, and Neovim follow macOS appearance; shell fzf and btop use matching Cursor Light/Dark palettes
