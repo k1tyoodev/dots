@@ -15,17 +15,6 @@
       minimize-to-application = true;
       showAppExposeGestureEnabled = false;
       mru-spaces = false;
-      persistent-apps = [
-        "/System/Applications/Apps.app"
-        "/System/Applications/iPhone Mirroring.app"
-        "/Applications/Helium.app"
-        "/Applications/Notion.app"
-        "/Applications/Figma.app"
-        "/Applications/Linear.app"
-        "/Applications/ChatGPT.app"
-        "/Applications/Claude.app"
-        "/Applications/Ghostty.app"
-      ];
       persistent-others = [
         {
           folder = {
