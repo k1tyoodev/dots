@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   # macOS system preferences
@@ -7,9 +7,35 @@
     dock = {
       autohide = false;
       orientation = "bottom";
-      tilesize = 43;
-      show-recents = true;
+      tilesize = 48;
+      show-recents = false;
+      magnification = false;
+      largesize = 16;
+      mineffect = "scale";
+      minimize-to-application = true;
+      showAppExposeGestureEnabled = false;
       mru-spaces = false;
+      persistent-apps = [
+        "/System/Applications/Apps.app"
+        "/System/Applications/iPhone Mirroring.app"
+        "/Applications/Helium.app"
+        "/Applications/Notion.app"
+        "/Applications/Figma.app"
+        "/Applications/Linear.app"
+        "/Applications/ChatGPT.app"
+        "/Applications/Claude.app"
+        "/Applications/Ghostty.app"
+      ];
+      persistent-others = [
+        {
+          folder = {
+            path = "/Users/${username}/Downloads";
+            arrangement = "name";
+            displayas = "folder";
+            showas = "grid";
+          };
+        }
+      ];
       # disable hot corners
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;

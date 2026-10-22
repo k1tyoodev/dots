@@ -87,6 +87,7 @@
       "notion"
       "raycast"
       "chatgpt"
+      "claude"
       "grok-bot"
       "linear"
       "zotero"
@@ -99,6 +100,7 @@
       "helium-browser"
       "hoppscotch"
       "paper-design"
+      "figma"
 
       # fonts
       "font-paper-mono"
